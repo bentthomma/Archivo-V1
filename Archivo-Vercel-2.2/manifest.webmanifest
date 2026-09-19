@@ -1,0 +1,26 @@
+{
+  "name": "Archivo – Dein persönliches Archiv",
+  "short_name": "Archivo",
+  "lang": "de-CH",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#315e4a",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "id": "./",
+  "scope": "./",
+  "description": "Notizen, Ordner und Dateien lokal im Browser. Ohne Anmeldung."
+}
