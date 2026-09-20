@@ -1,8 +1,0 @@
-{
-  "purpose": "User-authorized Archivio integration access test",
-  "testId": "archivio-access-check-20260920",
-  "revision": 2,
-  "checks": ["branch_create", "file_create", "file_read", "file_update"],
-  "containsUserData": false,
-  "productionChanges": false
-}
