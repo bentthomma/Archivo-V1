@@ -1,0 +1,8 @@
+{
+  "testId": "archivio-github-vercel-recheck-20260920",
+  "purpose": "Verify GitHub commit to Vercel preview delivery after reconnecting",
+  "branch": "archivio-preview-check-20260920",
+  "revision": 1,
+  "containsUserData": false,
+  "productionChanges": false
+}
