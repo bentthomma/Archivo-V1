@@ -1,0 +1,7 @@
+{
+  "purpose": "User-authorized Archivio integration access test",
+  "testId": "archivio-access-check-20260920",
+  "revision": 1,
+  "containsUserData": false,
+  "productionChanges": false
+}
