@@ -1,78 +1,84 @@
-# Archivo Web 2.2 — ohne Anmeldung
+# Archivio — M2 Design & Motion
 
-## Veröffentlichen
+Version: `3.0.0-design.1` · Stand: 20.09.2026
 
-Diese ZIP ist eine eigenständige Web-Version, kein Update für Archivo.exe.
-Bei Vercel Drop hochladen, Projektname wählen, Deploy. Keine Datenbank und keine
-Umgebungsvariablen erforderlich. Archivo hat keinen Login. Ein Vercel-Konto wird
-nur für die Veröffentlichung benötigt.
+**Interaktive Designstudie, kein produktives Archiv.**
+Die freigegebenen Light-/Dark-Referenzen sind in eine bedienbare Oberfläche übertragen.
+Nur die Theme-Einstellung wird unter `archivio-m2-theme` gespeichert. Alle Notizen,
+Ordner, Favoriten, Checklisten und Anhänge sind synthetische Sitzungsdaten und werden
+bei Neuladen zurückgesetzt. Keine IndexedDB, kein Zugriff auf das alte Archiv,
+keine Verbindung zu Supabase, keine Uploads, keine externen Schriften oder Bildabrufe.
 
-Projekt-Einstellungen, falls abgefragt:
-- Framework: Other
-- Build Command: leer (Override aktiv)
-- Install Command: leer
-- Output Directory: .
-- Startseite: index.html
+## Ausprobieren
 
-vercel.json ist enthalten. In der ZIP liegt index.html direkt in der Wurzel.
-Keine alten EXE-Dateien, persönlichen Backups oder data-Ordner mit hochladen.
-Für Updates dasselbe Vercel-Projekt verwenden: ein neuer Drop erzeugt ein neues
-Projekt und damit möglicherweise eine andere Adresse mit leerem Browserspeicher.
+- Hell/Dunkel oben rechts; Systemmodus in den Einstellungen.
+- `Strg/⌘ + K`: Suche, Pfeiltasten, Enter, Escape.
+- `Neu`: Auswahlmenü, Notiz- und Ordnerdialog.
+- Auf ein Bild klicken: Vergrösserung aus der Ausgangskachel, weiterer Zoom, Rückkehr.
+- Im Notizeditor `Fokusmodus`: Notizfläche vergrössern und wieder verkleinern.
+- Einstellungen → Bewegung erleben: interaktiver Motion-Spielplatz.
+- Mobil: Bottom Sheet am Griff nach unten ziehen; Listen und Detailansicht sind getrennt.
+- Die Systemeinstellung „Bewegung reduzieren“ wird respektiert. Ein eigener Schalter
+  kann Bewegung zusätzlich abschalten, aber keine aktive Systemeinstellung aufheben.
 
-## Speichern
+## Implementierung und Abgrenzung
 
-Die App selbst arbeitet ohne Backend und ohne Anmeldung. Notizen, Ordner und
-Anhänge werden in IndexedDB gespeichert — getrennt je Gerät, Browserprofil und
-Website-Adresse. Kein automatischer Abgleich zwischen Handy und Computer.
-Die Anwendung lädt keine Notizinhalte/Anhänge zu Vercel hoch. Personen mit Zugriff
-auf dein entsperrtes Browserprofil können das Archiv lesen. Keine App-Verschlüsselung.
-Die Oberfläche ist öffentlich; noindex ist kein Zugriffsschutz.
+M2 ist bewusst eine separat veröffentlichbare Design-/Interaktionsreferenz in HTML,
+CSS und JavaScript mit nativer Web Animations API. Ein leicht gedämpfter, gesampelter
+Federverlauf animiert Bild-/Panelgeometrie; Microinteractions verwenden CSS.
+Es sind keine externen Laufzeitpakete erforderlich. Die in M1 geplante React/TypeScript-
+Anwendungsarchitektur mit echter Datenhaltung ist damit **noch nicht umgesetzt**.
+Der Prototyp ersetzt diese Architektur nicht, sondern fixiert Layout, Tokens,
+Interaktionszustände und Motion-Verhalten vor dem funktionalen Ausbau.
 
-Warte auf „Im Browser gespeichert“. Normales Speichern passiert nach einer kurzen
-Eingabepause automatisch. Unter „Speicher & Sicherungen“ kann dauerhafter Speicher
-beim Browser angefragt werden. Die Entscheidung liegt beim Browser.
+Dateien:
+- `index.html`: Dokumenthülle und Reihenfolge der lokalen Ressourcen.
+- `theme.js`: frühe Darstellungsauswahl, ausschliesslich Theme-Präferenz.
+- `design.css`: semantische Farbtokens, Responsive Layout, Dialoge, reduzierte Bewegung.
+- `design.js`: Demo-Zustände, Ereignisse, Fokussteuerung und unterbrechbare Animationen.
+- `artwork.js`: Bilddetails aus den vom Nutzer freigegebenen generierten Referenzen.
+- `leaf.svg`: neu gezeichnetes Blattzeichen als Favicon.
+- `vercel.json`: statische Veröffentlichung, CSP, keine Build-Abhängigkeiten.
 
-Die Daten sind NICHT in einem frei sichtbaren data-Ordner und NICHT in der Cloud.
-Websitedaten nicht ohne Backup löschen, keinen privaten/Inkognito-Modus verwenden.
-Regelmässig vollständige ZIP-/JSON-Backups ausserhalb des Browsers aufbewahren.
-Bei Geräte-, Browser- oder Domainwechsel Datenbackup exportieren und importieren.
+PDF-Dateikarten, Versionen und zukünftige Archivfunktionen sind sichtbar als
+Design-/Informationszustände gekennzeichnet, nicht als bereits fertige Speicherung.
+Echte private Dateien sollen nicht in diesem Prototyp erfasst werden.
 
-## Bestehende Notizen übernehmen
+## Prüfung
 
-Aus der bisherigen EXE ein JSON- oder ZIP-DATENBACKUP exportieren und in der neuen
-Web-Version über „Backup importieren“ laden. Nicht die Programm-ZIP importieren.
-Der Import ERSETZT das Zielarchiv; er führt nicht zwei Archive zusammen. Der jetzige
-Zielstand wird vorher lokal gesichert. Alte Originaldaten bis zur Kontrolle behalten.
+16 Prüfgruppen bestanden in echtem Chromium-DOM, darunter zwei Demo-Notizen im neuen
+Ordner, Suchnavigation, ungefährliche Textausgabe, Fokusvergrösserung/Rückkehr,
+Bildzoom/Rückkehr, Tastatur-Fokuszyklus, sechs schnelle Öffnen/Schliessen-Sequenzen,
+neun Bildschirmbreiten (320–1920 px), mobiler Sheet-Ziehgriff, reduzierte Bewegung.
+Keine ungefangenen JavaScript-Fehler in diesen Abläufen.
 
-## Handy / Offline
+Die verwaltete Browserumgebung blockiert URL-Navigation. Deshalb wurden **unveränderte
+Release-Dateien** per `set_content`, `add_style_tag` und `add_script_tag` aus dem lokalen
+Verzeichnis geladen. Keine Browserrichtlinie wurde verändert; kein Code wurde für den
+Test durch eine vereinfachte Implementierung ersetzt. Die Testseiten verwenden keine
+simulierte Speicherung. Sie prüfen die tatsächliche DOM- und Animationslogik, aber nicht
+die vollständige Vercel-Auslieferung, reale Theme-Persistenz oder HTTP/CSP-Integration.
 
-Website am Handy öffnen. Unter „Als App öffnen“ stehen Installationshinweise.
-Manifest und Service Worker zum Bereithalten der Oberfläche sind enthalten.
-Offline-Zugriff erst nach erfolgreichem ersten Laden über HTTPS möglich; im echten
-Zielbrowser prüfen. Kein laufender PC-Server notwendig, keine native APK oder IPA.
-Bei zukünftigen Code-Updates die CACHE-Version in sw.js erhöhen. Alte Tabs schliessen,
-damit ein neuer Service Worker aktiv werden kann; während Eingaben kein erzwungenes Update.
+Kein Firefox-/WebKit-Test und kein Test auf einem physischen iPhone/Android-Gerät.
+Kein garantierter 60/120-Hz-Leistungswert. Renderingqualität, Touch-Tastatur und reale
+Frameraten müssen auf den Zielgeräten separat geprüft werden.
 
-## Grenzen
+Die herunterladbare Quellcode-ZIP enthält `tests/`, Screenshots und `qa/results.json`.
+Ein öffentliches Preview enthält nur die App-Ressourcen und diese Dokumentation.
 
-25 MiB pro Anhang, 100 MiB Anhänge pro Notiz, 100 Anhänge pro Notiz, 256 MiB Import.
-Browser-Export maximal 180 MiB unterschiedliche Dateiinhalte. 20 lokale Snapshots,
-auch manuelle zählen dazu. Alte Originaldateien bleiben zur Wiederherstellung
-aufbewahrt und belegen weiterhin Speicher. Keine automatische Dateibereinigung.
+## Veröffentlichung
 
-## Vor produktiver Nutzung
+Nur in einem separaten Testzweig. Keine Zusammenführung mit `Archivo-Vercel-2.2`.
+Die Vercel-Git-Integration veröffentlicht den Testzweig automatisch. Der vorhandene
+Vercel-Zugriffsschutz wird nicht verändert. Eine Preview-Freigabe ist keine Freigabe
+für Änderungen an der bisherigen Live-App.
 
-Ordner + zwei Notizen + Bild/Datei speichern, Browser ganz schliessen, neu öffnen
-und prüfen. Backup herunterladen und in einem separaten Test-Browser importieren.
-Alte Daten und unabhängiges Backup behalten. Kein Live-Vercel- oder physischer
-Smartphone-Test ausgeführt; siehe PRUEFBERICHT.md.
+## Quellen für die Bewegungs- und Bedienungsprinzipien
 
-Vollständige Anleitung: briefing.html.
-Quellcode: app.js (Oberfläche), storage.js (IndexedDB), zip.js (Datensicherungen).
-Keine nachzuladenden Drittanbieter-Bibliotheken, keine Build-Installation nötig.
+- https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog
+- https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+- https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
 
-Offizielle Dokumentation, abgerufen am 19.09.2026:
-https://vercel.com/docs/drop
-https://vercel.com/docs/builds/configure-a-build
-https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria
-https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persist
+Die konkreten Übergangsparameter sind eigene Designentscheidungen, keine exakte
+Reproduktion von Apples internen Animationsparametern.
